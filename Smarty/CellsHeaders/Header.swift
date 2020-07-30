@@ -11,6 +11,7 @@ class HeaderView: UICollectionReusableView {
     
     
     
+    // MARK: Views
     
     let dateLabel: UILabel = {
         let label = UILabel()

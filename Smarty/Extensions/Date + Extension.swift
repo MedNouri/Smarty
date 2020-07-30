@@ -14,6 +14,7 @@ extension Date {
 
         let dateFormatter = DateFormatter()
 
+    // date Formt to day/name/year
         dateFormatter.dateFormat = "LLLL dd,yyyy"
 
         return dateFormatter.string(from: Date())

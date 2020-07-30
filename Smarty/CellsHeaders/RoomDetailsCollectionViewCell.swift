@@ -10,7 +10,8 @@ import UIKit
 
 class RoomDetailsCollectionViewCell: UICollectionViewCell {
     
-
+    
+    // MARK: Views
 let backGroundImage: UIView = {
     let bg = UIView()
     bg.clipsToBounds = false

@@ -312,15 +312,3 @@ class WelcomeViewController: UIViewController {
 
 
 
-extension WelcomeViewController: UITextFieldDelegate{
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Hide Keyboard
-        view.endEditing(true)
-        GoToHome()
-        return true
-    }
-    
-    
-}

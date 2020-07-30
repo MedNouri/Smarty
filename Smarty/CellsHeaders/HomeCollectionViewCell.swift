@@ -11,6 +11,7 @@ import UIKit
 class HomeCollectionViewCell: UICollectionViewCell {
     
     
+    // MARK: Views
     let backGroundImage: UIView = {
         let bg = UIView()
         bg.clipsToBounds = false
@@ -65,6 +66,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     
     
+    // room Data 
+    
     var roomData:Room? {
         
         didSet{
@@ -84,6 +87,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     
     
+    // MARK: Setting Up views
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()

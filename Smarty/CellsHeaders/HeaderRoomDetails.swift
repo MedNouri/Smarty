@@ -10,6 +10,7 @@ import UIKit
 class HeaderRoomDetails: UICollectionReusableView {
     
     
+    // MARK: Views
     let rootStackView : UIStackView = {
         let sb = UIStackView()
         sb.spacing = 6
@@ -133,6 +134,7 @@ class HeaderRoomDetails: UICollectionReusableView {
     }
     
     
+    // MARK: setting views 
     func addViews(){
         
         addSubview(rootStackView)
