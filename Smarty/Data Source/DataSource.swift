@@ -23,3 +23,19 @@ static func allRooms() -> [Room] {
 
 
 }
+extension Device{
+// Fake Data
+static func allDevices() -> [Device] {
+  return [
+    Device(name: "TV", toggle: true),
+    Device(name: "Door Light", toggle: false),
+    Device(name: "Radio", toggle: true),
+    Device(name: "Music Player ", toggle: true),
+    Device(name: "Air conditioner", toggle: false),
+       
+
+  ]
+}
+
+
+}
