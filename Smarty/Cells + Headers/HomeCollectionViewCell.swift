@@ -106,19 +106,10 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     func addViews(){
         addSubview(backGroundImage)
-        backGroundImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 10, left: 10, bottom: 10, right: 10), size: .zero)
+        backGroundImage.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 5, left: 10, bottom: 5, right: 10), size: .zero)
         backgroundColor = .clear
-        
-        
-        
-        
-        
-        
-        
-        
-        //layer.shadowPath = UIBezierPath(rect: bounds).cgPath
-        
-        
+         //layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+         
         backGroundImage.addSubview(roomImage)
         roomImage.fillSuperview()
         

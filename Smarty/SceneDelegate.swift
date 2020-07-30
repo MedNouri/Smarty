@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
           window = UIWindow(frame: windowScene.coordinateSpace.bounds)
           window?.windowScene = windowScene
-         window?.rootViewController = UserDefaults.standard.getUserName() != nil ? UINavigationController(rootViewController:HomeViewController() )  : WelcomeViewController()
+        //TODO: When the user accesses the app for the first time, he/she is prompted to enter his/her name.Once entered, the application always redirects him or her directly to HOME UI.
+          window?.rootViewController = UserDefaults.standard.getUserName() != nil ? UINavigationController(rootViewController:HomeViewController() )  : WelcomeViewController()
           window?.makeKeyAndVisible()
         
         

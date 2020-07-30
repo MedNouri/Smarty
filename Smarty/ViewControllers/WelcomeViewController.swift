@@ -33,7 +33,10 @@ class WelcomeViewController: UIViewController {
         labeltitlte.textAlignment = .center
         labeltitlte.font = UIFont.boldSystemFont(ofSize: 35.0)
         labeltitlte.numberOfLines = 1
+        labeltitlte.adjustsFontSizeToFitWidth = true
+        labeltitlte.adjustsFontForContentSizeCategory = true
         labeltitlte.textColor = .SmartyBlackColor
+           labeltitlte.setContentCompressionResistancePriority(.required, for: .vertical)
         return labeltitlte
     }()
     
@@ -44,6 +47,7 @@ class WelcomeViewController: UIViewController {
         labelwelcome.font = UIFont.systemFont(ofSize: 23)
         labelwelcome.textColor = .SmartyGrayColor
         labelwelcome.numberOfLines = 1
+       labelwelcome.setContentCompressionResistancePriority(.required, for: .vertical)
         return labelwelcome
     }()
     
@@ -60,6 +64,8 @@ class WelcomeViewController: UIViewController {
         let sb = UIStackView()
         sb.spacing = 13
         sb.axis = .vertical
+        sb.setContentCompressionResistancePriority(.required, for: .vertical)
+
         sb.distribution = .fillProportionally
         return sb
     }()
@@ -92,22 +98,14 @@ class WelcomeViewController: UIViewController {
     
     
     
-    let LoaderAnimation : UIActivityIndicatorView = {
+   lazy var LoaderAnimation : UIActivityIndicatorView = {
         let sb = UIActivityIndicatorView()
         sb.hidesWhenStopped = true
         sb.style = UIActivityIndicatorView.Style.medium
         sb.translatesAutoresizingMaskIntoConstraints = false
-        
+        sb.color = .white
         return sb
     }()
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -115,11 +113,18 @@ class WelcomeViewController: UIViewController {
     var bottomConstarin:NSLayoutConstraint?
     
     
-    // show Or Hide Loader Animation True to show
-    func  funcShowLoader(_ show :Bool){}
     
     
-    fileprivate func extractedFunc() {
+    
+    
+    
+
+      //TODO: Should be displayed as first screen.
+      //TODO: Have an input field in which you can enter your name.
+      //TODO:  A button that takes to the home screen.
+    
+   
+    fileprivate func SetLayout() {
         
         
         // background Color
@@ -136,10 +141,11 @@ class WelcomeViewController: UIViewController {
         rootStackView.addArrangedSubview(logoImage)
         rootStackView.addArrangedSubview(Smartytext)
         rootStackView.addArrangedSubview(Welcometext)
-        
+      
         labelsStackView.addArrangedSubview(usernametextView)
         usernametextView.delegate = self
         labelsStackView.addArrangedSubview(GoToHomebutton)
+        
         rootStackView.addArrangedSubview(labelsStackView)
         
         // Simple Loader
@@ -169,7 +175,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        extractedFunc()
+        SetLayout()
         
         // sign in with google
         
@@ -181,7 +187,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // add fade in effact
-        UIView.animate(withDuration: 1.0) {
+        UIView.animate(withDuration: 0.8) {
             self.logoImage.alpha = 1.0
             
         }
@@ -211,15 +217,14 @@ class WelcomeViewController: UIViewController {
         UserDefaults.standard.setUserName(name:userName)
         
         
+        // Show Loading
+        ShowLoading()
         
         // Fake Background Loding
-        LoaderAnimation.startAnimating()
-        GoToHomebutton.setTitle("", for: .normal)
-        GoToHomebutton.isEnabled = false
-        usernametextView.isEnabled = false
+     
         let time = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: time) {
-            
+            // Go To Home
             let homeVC  = UINavigationController(rootViewController : HomeViewController())
             homeVC.modalPresentationStyle = .fullScreen
             
@@ -227,11 +232,20 @@ class WelcomeViewController: UIViewController {
             
         }
         
+    
+    }
+    
+    
+    private func ShowLoading(){
         
-        
-        
+              LoaderAnimation.startAnimating()
+             GoToHomebutton.setTitle("", for: .normal)
+             GoToHomebutton.isEnabled = false
+             usernametextView.isEnabled = false
         
     }
+    
+    
     
     
     
@@ -248,6 +262,10 @@ class WelcomeViewController: UIViewController {
     }
     
     
+    
+        // MARK:  keyboard management
+    
+    
     deinit {
         
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -262,7 +280,7 @@ class WelcomeViewController: UIViewController {
         let keyboardFrame = keyboardSize.cgRectValue
         
         if bottomConstarin?.constant == -20{
-            bottomConstarin?.constant = -(keyboardFrame.height + 10)
+            bottomConstarin?.constant = -(keyboardFrame.height)
             view.layoutIfNeeded()
         }
     }
@@ -279,6 +297,17 @@ class WelcomeViewController: UIViewController {
         }
         
     }
+    
+    
+ override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+     super.willTransition(to: newCollection, with: coordinator)
+
+   
+        self.view.endEditing(true)
+   
+ }
+
+ 
 }
 
 
@@ -287,7 +316,7 @@ extension WelcomeViewController: UITextFieldDelegate{
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
+        // Hide Keyboard
         view.endEditing(true)
         GoToHome()
         return true

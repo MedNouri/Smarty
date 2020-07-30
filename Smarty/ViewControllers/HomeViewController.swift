@@ -10,11 +10,13 @@ import UIKit
 
 let HomeCellId = "homeCell"
 let Headerid = "headerid"
+
 fileprivate let padding: CGFloat = 8
 
 class HomeViewController: UIViewController,UICollectionViewDelegateFlowLayout {
      
-
+    let cellH:CGFloat = 190
+    let HeaderH:CGFloat = 70
     
     var roomsData = [Room]()
     
@@ -31,17 +33,20 @@ class HomeViewController: UIViewController,UICollectionViewDelegateFlowLayout {
         // set Date
    
            roomsData.append(contentsOf: Room.allRooms())
+        
+        
+        
+       //TODO: Display the list of rooms.
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-      
+ 
         layout.scrollDirection = .vertical
-        Roomcollectionview = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-       // setupCollectionViewLayout()
+        Roomcollectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
+     
         Roomcollectionview.dataSource = self
         Roomcollectionview.delegate = self
         Roomcollectionview.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCellId)
         Roomcollectionview.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Headerid)
-   Roomcollectionview.contentInsetAdjustmentBehavior = .automatic
+         Roomcollectionview.contentInsetAdjustmentBehavior = .automatic
         Roomcollectionview.showsVerticalScrollIndicator = false
         Roomcollectionview.translatesAutoresizingMaskIntoConstraints = false
         Roomcollectionview.backgroundColor = .clear
@@ -59,22 +64,19 @@ class HomeViewController: UIViewController,UICollectionViewDelegateFlowLayout {
      }
     
 
- fileprivate func setupCollectionViewLayout() {
-    if let layout = Roomcollectionview.collectionViewLayout as? UICollectionViewFlowLayout {
-          layout.sectionInset = .init(top: 0, left: padding, bottom: 0, right: padding)
-          layout.sectionInsetReference = .fromSafeArea
-      }
-  }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+ 
+ 
+    
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true 
     }
-    */
-
+    
+    
+    
 }
 
 
@@ -115,7 +117,7 @@ extension HomeViewController : UICollectionViewDataSource,UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
        
-            return CGSize(width: view.safeAreaLayoutGuide.layoutFrame.width, height: 200)
+            return CGSize(width: view.safeAreaLayoutGuide.layoutFrame.width, height: cellH)
        
     }
     
@@ -124,15 +126,15 @@ extension HomeViewController : UICollectionViewDataSource,UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
            
            
-               return .init(width: view.frame.width, height: 70)
+               return .init(width: view.frame.width, height: HeaderH)
          
            
        }
     
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
+ 
+    
+    
       func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
            
         
@@ -149,9 +151,13 @@ extension HomeViewController : UICollectionViewDataSource,UICollectionViewDelega
                   fatalError("Invalid view type")
               }
 
-              
+             
+
               if let username =  UserDefaults.standard.getUserName(){
+               //TODO: Display the name written on the first screen.
                 headerView.userNameLabel.text = ("Welcome \(username) !")
+                
+                 //TODO: Display of the currently formatted date.
                 headerView.dateLabel.text = Date.getCurrentDate()
                     }
  
