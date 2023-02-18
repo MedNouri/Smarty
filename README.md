@@ -1,4 +1,4 @@
-# Smarty-Home MOBILE CODING CHALLENGE
+# Smarty-Home MOBILE Demo Project
 
 Welcome home!
 Smarty-Home  is a demo home automation app for iOS, built with Swift 5 and UIKit.
